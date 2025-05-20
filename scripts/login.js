@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         body: JSON.stringify({ username, password }),
       });
-
+    
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data.token);
@@ -52,6 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
           alert("Login failed: Server error (non-JSON response)");
         }
       }
+    
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred. Please try again.");
+    }
+  });
 
   // Register
   registerForm.addEventListener("submit", async (e) => {
