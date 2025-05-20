@@ -27,7 +27,7 @@ async function addCourse(event) {
 
   // Add Post
   try {
-    const response = await fetch("https://shared-slime-viola.glitch.me/api/courses", {
+    const response = await fetch("https://course-manager-backend-1.onrender.com/api/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
