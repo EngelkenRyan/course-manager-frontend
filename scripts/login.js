@@ -43,14 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("userId", data._id); 
         window.location.href = "index.html";
       } else {
-        const errorData = await res.json();
-        alert(`Login failed: ${errorData.message || 'Unknown error'}`);
+        let errorText = await res.text();
+        try {
+          const errorData = JSON.parse(errorText);
+          alert(`Login failed: ${errorData.message || 'Unknown error'}`);
+        } catch {
+          console.error("Non-JSON error response:", errorText);
+          alert("Login failed: Server error (non-JSON response)");
+        }
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-      alert("An error occurred. Please try again.");
-    }
-  });
 
   // Register
   registerForm.addEventListener("submit", async (e) => {
