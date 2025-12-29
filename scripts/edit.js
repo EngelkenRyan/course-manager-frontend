@@ -44,15 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error("Failed to fetch courses");
       }
 
+      // Display courses
       const courses = await response.json();
       const container = document.getElementById("courses-container");
       container.innerHTML = "";
 
+      // No courses message
       if (courses.length === 0) {
         container.innerHTML = "<p>No courses available.</p>";
         return;
       }
 
+      // Create course cards
       courses.forEach((course) => {
         const card = document.createElement("div");
         card.className = "course-card";
@@ -76,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         container.appendChild(card);
       });
-
+      
       attachButtonListeners();
     } catch (error) {
       console.error("Error loading courses:", error);
@@ -103,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }
             );
 
+            // Handle response
             if (response.ok) {
               alert("Course deleted successfully!");
               loadCourses();
@@ -122,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
+    // Edit
     document.querySelectorAll(".edit-btn").forEach((button) => {
       button.addEventListener("click", async function () {
         const courseId = this.dataset.id;
@@ -145,6 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             throw new Error("Failed to fetch course details");
           }
 
+          // Populate and open edit modal
           const course = await response.json();
           openEditModal(course);
         } catch (error) {
@@ -155,10 +161,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Edit Modal
   const editModal = document.getElementById("editModal");
   const closeModal = document.querySelector(".close");
   const editForm = document.getElementById("editForm");
 
+  // Open Edit Modal
   function openEditModal(course) {
     document.getElementById("courseId").value = course._id;
     document.getElementById("courseName").value = course.courseName;
@@ -174,21 +182,25 @@ document.addEventListener("DOMContentLoaded", () => {
     editModal.style.display = "block";
   }
 
+  // Close Edit Modal
   if (closeModal) {
     closeModal.addEventListener("click", function () {
       editModal.style.display = "none";
     });
   }
 
+  // Close modal on outside click
   window.onclick = function (event) {
     if (event.target === editModal) {
       editModal.style.display = "none";
     }
   };
 
+  // Submit Edit Form
   editForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
+    // Get updated course data
     const id = document.getElementById("courseId").value;
     const updatedCourse = {
       courseName: document.getElementById("courseName").value,

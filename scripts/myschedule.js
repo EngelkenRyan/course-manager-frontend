@@ -32,15 +32,18 @@ async function loadCourses() {
       throw new Error("Failed to fetch enrolled courses");
     }
 
+    // Display enrolled courses
     const courses = await response.json();
     const coursesContainer = document.getElementById("courses-container");
     coursesContainer.innerHTML = "";
 
+    //  No enrolled courses message
     if (courses.length === 0) {
       coursesContainer.innerHTML = "<p>No courses enrolled.</p>";
       return;
     }
 
+    // Create schedule table
     const table = document.createElement("table");
     table.classList.add("schedule-table");
 
@@ -61,6 +64,7 @@ async function loadCourses() {
       </tbody>
     `;
 
+    // Populate table rows
     const tbody = table.querySelector("tbody");
     courses.forEach((course) => {
       const row = document.createElement("tr");
@@ -96,6 +100,7 @@ async function loadCourses() {
               }
             );
 
+            //  Handle response
             const result = await response.json();
             if (response.ok) {
               alert("Successfully dropped the course!");

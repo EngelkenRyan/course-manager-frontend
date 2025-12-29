@@ -5,6 +5,7 @@ addEventListener("DOMContentLoaded", function () {
 async function addCourse(event) {
   event.preventDefault();
 
+  // Get token and role
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
@@ -14,6 +15,7 @@ async function addCourse(event) {
     return;
   }
 
+  // Create course object
   const course = {
     courseName: document.querySelector("#courseName").value,
     courseDescription: document.querySelector("#courseDescription").value,
@@ -39,6 +41,7 @@ async function addCourse(event) {
       }
     );
 
+    // Handle response
     if (response.ok) {
       await response.json();
       alert("Course added successfully!");

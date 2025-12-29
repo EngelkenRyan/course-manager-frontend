@@ -410,3 +410,144 @@ form button {
     white-space: nowrap;
   }
 }
+
+/* TOAST NOTIFICATIONS */
+.toast-container {
+  position: fixed;
+  top: 86px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 4000;
+}
+
+.toast {
+  min-width: 260px;
+  max-width: 360px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #111;
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  animation: toastIn 160ms ease-out;
+}
+
+.toast .toast-title {
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.toast .toast-msg {
+  font-size: 13px;
+  opacity: 0.95;
+  line-height: 1.25;
+}
+
+.toast.success {
+  background: #1f6f2a;
+}
+.toast.error {
+  background: #b3261e;
+}
+.toast.info {
+  background: #111;
+}
+
+.toast .toast-close {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+.toast .toast-close:hover {
+  opacity: 1;
+}
+
+@keyframes toastIn {
+  from {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* DEMO BUTTONS */
+.demo-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.demo-btn {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  background: #567a00;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.demo-btn:hover {
+  filter: brightness(0.95);
+}
+
+.demo-btn-outline {
+  background: transparent;
+  border: 2px solid #567a00;
+  color: #567a00;
+}
+
+.demo-btn-outline:hover {
+  background: rgba(86, 122, 0, 0.1);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e2e2e2;
+}
+
+.divider span {
+  padding: 0 6px;
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .demo-row {
+    flex-direction: column;
+  }
+  .toast-container {
+    right: 12px;
+    left: 12px;
+  }
+  .toast {
+    max-width: none;
+    width: 100%;
+  }
+}

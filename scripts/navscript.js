@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLinks = document.getElementById('navLinks');
   const logoutBtn = document.getElementById("logoutBtn");
 
+  // Toggle navigation links on hamburger click
   if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('active');
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.warn('Hamburger or navLinks element not found.');
   }
 
+  // Logout functionality
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       localStorage.removeItem("token");

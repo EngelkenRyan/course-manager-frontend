@@ -7,15 +7,39 @@
     <script defer src="./scripts/login.js"></script>
   </head>
   <body>
+    <div
+      id="toastContainer"
+      class="toast-container"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
     <div class="form-container">
       <h1>Login</h1>
+      <div class="demo-row">
+        <button type="button" id="demoStudentBtn" class="demo-btn">
+          Login as Demo Student
+        </button>
+        <button
+          type="button"
+          id="demoTeacherBtn"
+          class="demo-btn demo-btn-outline"
+        >
+          Login as Demo Teacher
+        </button>
+      </div>
+
+      <div class="divider"><span>or</span></div>
+
       <form id="loginForm">
         <input type="text" id="username" placeholder="Username" required />
         <input type="password" id="password" placeholder="Password" required />
         <button type="submit">Login</button>
       </form>
 
-      <p id="register">Don't have an account? <a href="#" id="showRegister">Register</a></p>
+      <p id="register">
+        Don't have an account? <a href="#" id="showRegister">Register</a>
+      </p>
 
       <div id="registerModal" class="modal">
         <div class="modal-content">

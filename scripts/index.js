@@ -1,14 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Get saved login token
   const token = localStorage.getItem("token");
 
+  // Get redirected if no token
   if (!token) {
-    window.location.href = "login.html"; 
+    window.location.href = "login.html";
     return;
   }
 
-  const decodedToken = JSON.parse(atob(token.split('.')[1])); 
+  // Decode token to get user role
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
   const userRole = decodedToken.role;
 
+  // Show/hide buttons based on role
   if (userRole === "student") {
     document.getElementById("createCourseButton").style.display = "none";
     document.getElementById("deleteCourseButton").style.display = "none";
@@ -18,6 +22,4 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     window.location.href = "login.html";
   }
-
-
 });
