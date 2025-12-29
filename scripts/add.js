@@ -22,19 +22,22 @@ async function addCourse(event) {
     dayOfWeek: document.querySelector("#dayOfWeek").value,
     timeOfClass: document.querySelector("#timeOfClass").value,
     creditHours: document.querySelector("#creditHours").value,
-    subjectArea: document.querySelector("#subjectArea").value
+    subjectArea: document.querySelector("#subjectArea").value,
   };
 
   // Add Post
   try {
-    const response = await fetch("https://course-manager-backend-1.onrender.com/api/courses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth": token 
-      },
-      body: JSON.stringify(course)
-    });
+    const response = await fetch(
+      "https://course-manager-backend-updated-2026.onrender.com/api/courses",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth": token,
+        },
+        body: JSON.stringify(course),
+      }
+    );
 
     if (response.ok) {
       await response.json();
@@ -42,10 +45,13 @@ async function addCourse(event) {
       document.querySelector("#addCourseForm").reset();
     } else {
       const errorData = await response.json();
-      document.querySelector("#error").innerHTML = `Error: ${errorData.error || "Something went wrong."}`;
+      document.querySelector("#error").innerHTML = `Error: ${
+        errorData.error || "Something went wrong."
+      }`;
     }
   } catch (err) {
     console.error("Add course error:", err);
-    document.querySelector("#error").innerHTML = "Error adding course. Please try again.";
+    document.querySelector("#error").innerHTML =
+      "Error adding course. Please try again.";
   }
 }

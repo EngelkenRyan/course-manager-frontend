@@ -1,45 +1,48 @@
-window.addEventListener('DOMContentLoaded', loadCourses);
+window.addEventListener("DOMContentLoaded", loadCourses);
 
 // Function for enrolled courses
 async function loadCourses() {
-  const token = localStorage.getItem('token');
-  const userId = localStorage.getItem('userId');
-  
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
   if (!token || !userId) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userId');
-    window.location.href = 'login.html';
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    window.location.href = "login.html";
     return;
   }
 
   try {
-    const response = await fetch('https://course-manager-backend-1.onrender.com/api/courses?enrolled=true', {
-      headers: {
-        'x-auth': token
+    const response = await fetch(
+      "https://course-manager-backend-updated-2026.onrender.com/api/courses?enrolled=true",
+      {
+        headers: {
+          "x-auth": token,
+        },
       }
-    });
+    );
 
     if (!response.ok) {
       if (response.status === 401) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('userId');
-        window.location.href = 'login.html';
-        throw new Error('Unauthorized: Please log in again.');
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        window.location.href = "login.html";
+        throw new Error("Unauthorized: Please log in again.");
       }
-      throw new Error('Failed to fetch enrolled courses');
+      throw new Error("Failed to fetch enrolled courses");
     }
 
     const courses = await response.json();
-    const coursesContainer = document.getElementById('courses-container');
-    coursesContainer.innerHTML = '';
+    const coursesContainer = document.getElementById("courses-container");
+    coursesContainer.innerHTML = "";
 
     if (courses.length === 0) {
-      coursesContainer.innerHTML = '<p>No courses enrolled.</p>';
+      coursesContainer.innerHTML = "<p>No courses enrolled.</p>";
       return;
     }
 
-    const table = document.createElement('table');
-    table.classList.add('schedule-table');
+    const table = document.createElement("table");
+    table.classList.add("schedule-table");
 
     table.innerHTML = `
       <thead>
@@ -58,9 +61,9 @@ async function loadCourses() {
       </tbody>
     `;
 
-    const tbody = table.querySelector('tbody');
-    courses.forEach(course => {
-      const row = document.createElement('tr');
+    const tbody = table.querySelector("tbody");
+    courses.forEach((course) => {
+      const row = document.createElement("tr");
       row.innerHTML = `
         <td>${course.courseName}</td>
         <td>${course.courseId}</td>
@@ -76,36 +79,41 @@ async function loadCourses() {
 
     coursesContainer.appendChild(table);
 
-    // Unenroll 
-    document.querySelectorAll('.drop-button').forEach(button => {
-      button.addEventListener('click', async function() {
+    // Unenroll
+    document.querySelectorAll(".drop-button").forEach((button) => {
+      button.addEventListener("click", async function () {
         const courseId = this.dataset.id;
-        if (confirm('Are you sure you want to drop this course?')) {
+        if (confirm("Are you sure you want to drop this course?")) {
           try {
-            const response = await fetch(`https://course-manager-backend-1.onrender.com/api/courses/${courseId}/drop`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-auth': token
+            const response = await fetch(
+              `https://course-manager-backend-updated-2026.onrender.com/api/courses/${courseId}/drop`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-auth": token,
+                },
               }
-            });
+            );
 
             const result = await response.json();
             if (response.ok) {
-              alert('Successfully dropped the course!');
+              alert("Successfully dropped the course!");
               loadCourses();
             } else {
-              alert(`Error: ${result.message || 'Failed to drop course'}`);
+              alert(`Error: ${result.message || "Failed to drop course"}`);
             }
           } catch (error) {
-            console.error('Drop error:', error);
-            alert('Error dropping course.');
+            console.error("Drop error:", error);
+            alert("Error dropping course.");
           }
         }
       });
     });
   } catch (error) {
-    console.error('Error loading enrolled courses:', error);
-    document.getElementById('courses-container').innerHTML = `<p>${error.message || 'Error loading schedule. Please try again.'}</p>`;
+    console.error("Error loading enrolled courses:", error);
+    document.getElementById("courses-container").innerHTML = `<p>${
+      error.message || "Error loading schedule. Please try again."
+    }</p>`;
   }
 }
